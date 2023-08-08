@@ -1,24 +1,23 @@
 terraform {
   required_providers {
     proxmox = {
-      source  = "telmate/proxmox"
-      version = ">=2.9.14"
+      source  = "Telmate/proxmox"
+      version = "2.9.14"
     }
   }
 }
 
 provider "proxmox" {
-  pm_tls_insecure = true
   pm_api_url = "https://192.168.88.238:8006/api2/json"
-  pm_user = "terraform@pam"
-  pm_password = "&p1VE28$"
   pm_debug = true
+  pm_api_token_id = "terraform@pam!token_id"
+  pm_api_token_secret = "3fd9091d-23e7-4ef0-8f56-398d5c061e18"
 }
 
 resource "proxmox_lxc" "lxc-test" {
   hostname = "lxc-test-host"
-  cores = 1
-  memory = "1024"
+  cores = 2
+  memory = "2048"
   swap = "2048"
   network {
     name = "eth0"
@@ -32,4 +31,8 @@ resource "proxmox_lxc" "lxc-test" {
   storage = "local-lvm2"
   target_node = "proxmox"
   unprivileged = true
+  rootfs {
+    size    = "8G"
+    storage = "local-lvm"
+  }
 }
