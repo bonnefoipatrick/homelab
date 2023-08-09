@@ -24,11 +24,12 @@ resource "proxmox_lxc" "lxc-test" {
     bridge = "vmbr0"
     ip = "dhcp"
   }
+
   ostemplate = "local:vztmpl/debian-12-standard_12.0-1_amd64.tar.zst"
   password = "&p1VE28$"
+
   pool = "terraform"
-  rootfs = "local-lvm2:8"
-  storage = "local-lvm2"
+
   target_node = "proxmox"
   unprivileged = true
   rootfs {
