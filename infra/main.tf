@@ -7,14 +7,19 @@ terraform {
 }
 
 provider "proxmox" {
-  pm_api_url = "https://192.168.88.238:8006/api2/json"
-  pm_api_token_id = "terraform@pam!token_id"
-  pm_api_token_secret = "5d67de61-ce4d-40d1-acba-c560d3c3d2a3"
+  pm_api_url = var.pm_api_url
+  pm_api_token_id = var.pm_api_token_id
+  pm_api_token_secret = var.pm_api_token_secret
+  pm_debug = true
+  pm_log_enable = true
+  pm_log_file = "log-proxmox-tf.log"
 }
 
-resource "proxmox_lxc" "lxc-test" {
-  target_node = "proxmox"
-  hostname = "lxc-test"
+resource "proxmox_lxc" "dns" {
+
+  target_node = "pve"
+  hostname = "lp100dns001"
+  unprivileged = true
   cores = 2
   memory = "2048"
   swap = "2048"
@@ -26,6 +31,14 @@ resource "proxmox_lxc" "lxc-test" {
     name = "eth0"
     bridge = "vmbr0"
     ip = "dhcp"
+    tag = var.vlan.mgmt
+  }
+
+  network {
+    name = "eth1"
+    bridge = "vmbr0"
+    ip = "dhcp"
+    tag = var.vlan.infra
   }
 
   rootfs {

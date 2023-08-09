@@ -9,3 +9,12 @@ variable "pm_api_token_secret" {
   type      = string
   sensitive = true
 }
+variable "vlan" {
+  type      = "map"
+  default = {
+    "mgmt" = 99
+    "infra" = 100
+    "front" = 500
+    "back" = 600
+  }
+}
