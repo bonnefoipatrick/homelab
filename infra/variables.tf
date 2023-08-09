@@ -10,7 +10,7 @@ variable "pm_api_token_secret" {
   sensitive = true
 }
 variable "vlan" {
-  type      = "map"
+  type      = map(string)
   default = {
     "mgmt" = 99
     "infra" = 100
