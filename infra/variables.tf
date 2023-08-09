@@ -3,6 +3,7 @@ variable "pm_api_url" {
 }
 variable "pm_api_token_id" {
   type = string
+  default = "terraform@pam!token_id"
 }
 variable "pm_api_token_secret" {
   type      = string
