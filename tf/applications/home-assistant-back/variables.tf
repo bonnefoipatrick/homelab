@@ -21,3 +21,8 @@ variable "vlan" {
 variable "pm_host" {
   type = string
 }
+
+variable "do_token" {}
+
+variable "domain_name" {}
+
