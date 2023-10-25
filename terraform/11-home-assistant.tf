@@ -1,14 +1,11 @@
 
 resource "proxmox_lxc" "home_assistant" {
   target_node = var.pm_host
-
-  core                = 2
+  cores               = 2
   hostname            = "lp600dom001"
-  unprivileged = true
-  ip_mgmt             = "dhcp"
-  ip_vlan             = "dhcp"
+  unprivileged        = true
   memory              = 2048
-  os                  = var.os_lxc
+  ostemplate          = var.os_lxc
   swap                = 2048
   password            = "&p1VE28$"
   network {
