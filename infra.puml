@@ -15,6 +15,20 @@ endlegend
 The other icons will need to come from other stdlib libraries: backup, users, clients.
 '/
 
+pERKBHhdxv/nIK9IEI/eSkbWjTj8Nnm4+7EwN2SnCgPE7ADAXbs6Yrceiu3H+O7EEV5PPhNCh7jNa7JB/6t77Wxd1ttWRkCcyEfz7VunnrQSHf8TW+h2XWBJdjxV2lob
+
+{
+            "secret": "pERKBHhdxv/nIK9IEI/eSkbWjTj8Nnm4+7EwN2SnCgPE7ADAXbs6Yrceiu3H+O7EEV5PPhNCh7jNa7JB/6t77Wxd1ttWRkCcyEfz7VunnrQSHf8TW+h2XWBJdjxV2lob",
+            "overrideAddress": false,
+            "hideAwayButton": false,
+            "platform": "drayton-wiser",
+            "_bridge": {
+                "username": "0E:70:4E:96:E3:7F",
+                "port": 55751
+            }
+        }
+        https://github.com/stringbean/homebridge-drayton-wiser
+        
 !include <awslib/AWSCommon>
 !include <awslib/AWSSimplified.puml>
 !include <awslib/Compute/all.puml>
