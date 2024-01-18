@@ -1,6 +1,6 @@
-<mxfile modified="2024-01-16T20:10:35.587Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0" etag="XN3Avdg4hjRyrNpFy8mr" version="21.2.1" type="github">
+<mxfile modified="2024-01-18T07:59:30.041Z" host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0" etag="vPo0tamTqjVBtcQshm6V" version="21.2.1" type="github">
   <diagram id="l8hXMBHkgcEJcSW0mbfh" name="Page-1">
-    <mxGraphModel dx="1405" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4228" dy="2075" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -100,11 +100,17 @@
         <mxCell id="D-P4FoIyVBjv3j4gOKvl-70" value="HomeAssistant" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/generic_server.svg;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
           <mxGeometry x="48" y="160" width="28.000000000000004" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="D-P4FoIyVBjv3j4gOKvl-72" value="" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/database_server.svg;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
+        <mxCell id="D-P4FoIyVBjv3j4gOKvl-72" value="PostGreSQL" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/database_server.svg;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
           <mxGeometry x="130" y="160" width="41" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="D-P4FoIyVBjv3j4gOKvl-87" value="" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=master" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
+        <mxCell id="D-P4FoIyVBjv3j4gOKvl-87" value="Kubernetes" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=master" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
           <mxGeometry x="208" y="160" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="D-P4FoIyVBjv3j4gOKvl-95" value="MongoDB" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/database_server.svg;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
+          <mxGeometry x="130" y="250" width="41" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="D-P4FoIyVBjv3j4gOKvl-94" value="Redis" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/database_server.svg;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-37">
+          <mxGeometry x="130" y="340" width="41" height="50" as="geometry" />
         </mxCell>
         <mxCell id="D-P4FoIyVBjv3j4gOKvl-40" value="FrontEnd VLAN 300&#xa;10.0.32.1/24&#xa; &#xa;" style="swimlane;startSize=25;" vertex="1" parent="1">
           <mxGeometry x="300" y="530" width="580" height="610" as="geometry" />
@@ -112,11 +118,21 @@
         <mxCell id="D-P4FoIyVBjv3j4gOKvl-91" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="D-P4FoIyVBjv3j4gOKvl-40" source="D-P4FoIyVBjv3j4gOKvl-42" target="D-P4FoIyVBjv3j4gOKvl-90">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="D-P4FoIyVBjv3j4gOKvl-93" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="D-P4FoIyVBjv3j4gOKvl-40" source="D-P4FoIyVBjv3j4gOKvl-42" target="D-P4FoIyVBjv3j4gOKvl-92">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="319" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="D-P4FoIyVBjv3j4gOKvl-42" value="vmbr3 : 10.0.32.1/24" style="shape=mxgraph.cisco.security.router_firewall;sketch=0;html=1;pointerEvents=1;dashed=0;fillColor=#036897;strokeColor=#ffffff;strokeWidth=2;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-40">
           <mxGeometry x="280" y="44" width="78" height="62" as="geometry" />
         </mxCell>
         <mxCell id="D-P4FoIyVBjv3j4gOKvl-90" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.application_load_balancer;fillColor=#F58536;gradientColor=none;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-40">
           <mxGeometry x="40" y="39" width="69" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="D-P4FoIyVBjv3j4gOKvl-92" value="GraviteeIO (Api GW)" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;gradientColor=#FF4F8B;gradientDirection=north;fillColor=#BC1356;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" vertex="1" parent="D-P4FoIyVBjv3j4gOKvl-40">
+          <mxGeometry x="40" y="150" width="78" height="78" as="geometry" />
         </mxCell>
         <mxCell id="D-P4FoIyVBjv3j4gOKvl-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="D-P4FoIyVBjv3j4gOKvl-49" target="D-P4FoIyVBjv3j4gOKvl-29">
           <mxGeometry relative="1" as="geometry">
