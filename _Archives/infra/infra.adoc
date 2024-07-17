@@ -1,0 +1,6 @@
+== Infrastructure
+
+[plantuml, infra, svg]
+----
+include::./infra.puml[]
+----

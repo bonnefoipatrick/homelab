@@ -1,0 +1,14 @@
+---
+- name: Secure Proxmox Template
+  hosts: default
+  become: true
+  gather_facts: false
+  roles:
+    - role: homelab.motd
+      vars:
+        motd_banner: " {{ ansible_hostname }} "
+    - role: homelab.sshd
+      vars:
+        sshd_allowagentforwarding: "yes"
+        sshd_allowtcpforwarding: "yes"
+        sshd_allowusers: bob

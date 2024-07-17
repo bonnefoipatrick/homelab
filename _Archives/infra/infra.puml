@@ -1,0 +1,71 @@
+@startuml
+
+!include https://scm.saas.cagip.group.gca/architecture-assurance/gouvernance/modeles/-/raw/master/plantuml/1.2023.1.cfg
+!include <cloudinsight/haproxy>
+
+!include <kubernetes/k8s-sprites-unlabeled-25pct>
+
+
+!procedure haproxy($label)
+rectangle "<$haproxy>\n$label"
+!endprocedure
+
+legend
+Infrastructure perso
+end legend
+
+internet("Internet") as internet
+
+cloud("BOX") as box
+
+administrator("Administrateurs via VPN") as vpn
+users("Mac") as mac
+users("Iphone") as iphone
+
+datacenter("ProxMox") {
+    firewall("pfSense") as pfSense
+
+    dmz("DMZ Administration (VLAN 100)") {
+        server("Guacamole Administration") as guacamole
+    }
+
+    dmz("DMZ FrontEnd (VLAN 200)") {
+        haproxy("Ha Proxy") as haproxy
+    }
+
+    dmz("DMZ BackEnd (VLAN 500)") {
+        server("Serveur Infra DNS") as dns
+        server("Home Assistant") as ha
+        server("NextCloud") as nextcloud
+
+        datacenter("Cluster Kubernetes") {
+            k8s_pod("KeyCloak") as keycloak
+            k8s_pod("Splunk") as splunk
+            k8s_pod("Redis") as redis
+            k8s_pod("Mongo") as mongo
+            k8s_pod("PostGreSQL") as pgsql
+        }
+
+    }
+
+    dmz("DMZ HorsProd (VLAN 700)") {
+    }
+}
+
+file_server("NAS") as nas
+
+
+vpn --> internet
+internet <--> box
+
+mac --> box
+iphone --> box
+
+box --> pfSense
+
+pfSense --> haproxy <<https>>
+pfSense --> guacamole <<ssh>>
+
+haproxy --> ha <<https>>
+haproxy --> keycloak <<https>>
+@enduml
