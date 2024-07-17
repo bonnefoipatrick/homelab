@@ -33,3 +33,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 /.idea/
+/coreos/release/.fingerprint/
+/coreos/release/deps/
+/coreos/release/build/

@@ -1,0 +1,27 @@
+{
+  "ignition": {
+    "config": {
+      "replace": {
+        "source": null,
+        "verification": {}
+      }
+    },
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "3.0.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDM96QtPDr1Vhsndca7BTiOu+Rb7D1mv+cql6jS1xSDsQ5TO5bwiUj1OeJWFCNV9mGhXXpUVNF/ye8jK3yB0jHiiuR0l2IlQIzzhvxtO8pIcJPFFytcoWolAiAhXiifRDiblqNJD7jmfJWSUtUQ4Twm4OXP3aMnhABb3ipjE93Lai+yCStROV0bgnjaaTHOVKtMp7JKYE9bVcqXov5cLAupx4kRpsGxC3SDSvqwQgz51kEbL6wQj92erhn93ldK1l0Z5AKfSEIY9AvQkGIdHyn/rDK5cvm0vv69iGvDA1wQ7M2uMHZKV13HZPEaQQtdbe289NTJf3bXL4ylVcHdMI7 patrickbonnefoi@MacBook-Pro-de-Patrick.local"
+        ]
+      }
+    ]
+  },
+  "storage": {},
+  "systemd": {}
+}
