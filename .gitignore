@@ -1,6 +1,5 @@
 # Local .terraform directories
 **/.terraform/*
-
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -36,3 +35,4 @@ terraform.rc
 /coreos/release/.fingerprint/
 /coreos/release/deps/
 /coreos/release/build/
+/fcosqemu/images/
