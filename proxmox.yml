@@ -1,5 +1,0 @@
----
-- name: Install Proxmox
-  hosts: proxmoxs
-  roles:
-    - role: labinfosec.proxmox
