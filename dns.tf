@@ -29,7 +29,7 @@ resource "proxmox_vm_qemu" "dns" {
   network {
     model           = "virtio"
     bridge          = "vmbr0"
-    tag		    = 8
+    tag		        = 8
   }
 
   network {
@@ -48,28 +48,28 @@ resource "proxmox_vm_qemu" "dns" {
   cipassword        = "&p1VE28$"
 
   # Déclaration du script de démarrage, en utilisant user it-anthony + clé SSH privée
-  provisioner "file" {
-    source      = "~/Documents/Terraform/startup.sh"
-    destination = "/tmp/startup.sh"
-    connection {
-      type     = "ssh"
-      user     = "uadm001"
-      private_key     = "${file("~/.ssh/key-tools")}"
-      host     = "${self.ssh_host}"
-    }
-  }
-  # Exécution du script de démarrage
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/startup.sh",
-      "/tmp/startup.sh",
-    ]
-    connection {
-      type     = "ssh"
-      user     = "uadm001"
-      private_key     = "${file("~/.ssh/key-tools")}"
-      host     = "${self.ssh_host}"
-    }
-  }
+#   provisioner "file" {
+#     source      = "~/Documents/Terraform/startup.sh"
+#     destination = "/tmp/startup.sh"
+#     connection {
+#       type     = "ssh"
+#       user     = "uadm001"
+#       private_key     = "${file("~/.ssh/key-tools")}"
+#       host     = "${self.ssh_host}"
+#     }
+#   }
+#   # Exécution du script de démarrage
+#   provisioner "remote-exec" {
+#     inline = [
+#       "chmod +x /tmp/startup.sh",
+#       "/tmp/startup.sh",
+#     ]
+#     connection {
+#       type     = "ssh"
+#       user     = "uadm001"
+#       private_key     = "${file("~/.ssh/key-tools")}"
+#       host     = "${self.ssh_host}"
+#     }
+#   }
 }
 
