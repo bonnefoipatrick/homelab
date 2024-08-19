@@ -1,0 +1,24 @@
+---
+- name: Configure All
+  hosts: all
+  gather_facts: false
+  become: true
+  vars:
+    user: uadmtools001
+  tasks:
+    - name: Make uadmtools001 sudoers
+      community.general.sudoers:
+        name: "{{ user }}"
+        user: "{{ user }}"
+        nopassword: true
+        commands: ALL
+  roles:
+    - role: labinfosec.bootstrap
+    - role: labinfosec.motd
+      vars:
+        motd_banner: " {{ ansible_hostname }} "
+    - role: labinfosec.sshd
+      vars:
+        sshd_allowagentforwarding: "yes"
+        sshd_allowtcpforwarding: "yes"
+        sshd_allowusers: uadmtools001
