@@ -54,7 +54,7 @@ resource "proxmox_vm_qemu" "dns" {
     connection {
       type     = "ssh"
       user     = "uadm001"
-      private_key     = "${file("~/.ssh/id_rsa")}"
+      private_key     = "${file("~/.ssh/key-tools")}"
       host     = "${self.ssh_host}"
     }
   }
@@ -67,7 +67,7 @@ resource "proxmox_vm_qemu" "dns" {
     connection {
       type     = "ssh"
       user     = "uadm001"
-      private_key     = "${file("~/.ssh/id_rsa")}"
+      private_key     = "${file("~/.ssh/key-tools")}"
       host     = "${self.ssh_host}"
     }
   }
