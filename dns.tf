@@ -29,6 +29,11 @@ resource "proxmox_vm_qemu" "dns" {
   network {
     model           = "virtio"
     bridge          = "vmbr0"
+  }
+
+  network {
+    model           = "virtio"
+    bridge          = "vmbr0"
     tag		        = 8
   }
 
@@ -40,8 +45,8 @@ resource "proxmox_vm_qemu" "dns" {
 
   # cloud-init settings
   # adjust the ip and gateway addresses as needed
-  ipconfig0	    = "ip=172.0.8.253/24,gw=172.0.8.1"
-  ipconfig1         = "ip=172.0.32.253/24,gw=172.0.32.1"
+  ipconfig1  	    = "ip=172.0.8.253/24,gw=172.0.8.1"
+  ipconfig2         = "ip=172.0.32.253/24,gw=172.0.32.1"
   sshkeys = file("${var.ssh_key_file}")
 
   ciuser            = "uadm001"
