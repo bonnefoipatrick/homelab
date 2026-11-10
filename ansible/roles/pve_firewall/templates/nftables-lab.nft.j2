@@ -1,0 +1,18 @@
+table inet homelab {
+  chain prerouting {
+    type nat hook prerouting priority dstnat; policy accept;
+    # Rupture protocolaire : le LAN ne voit que Traefik en 443/80
+    iifname "vmbr0" tcp dport 443 dnat to {{ traefik_lb_ip }}:443
+    iifname "vmbr0" tcp dport 80  dnat to {{ traefik_lb_ip }}:80
+  }
+  chain forward {
+    type filter hook forward priority filter; policy drop;
+    # Le lab ne sort jamais de lui-même vers le LAN
+    iifname "vmbr1" oifname "vmbr0" drop
+    # Autorise le retour des connexions DNAT
+    ct state established,related accept
+    oifname "vmbr1" ip daddr {{ traefik_lb_ip }} tcp dport { 80, 443 } accept
+    # La VM admin (10.10.10.5) traverse vers le lab
+    iifname "vmbr0" oifname "vmbr1" accept
+  }
+}

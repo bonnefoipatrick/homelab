@@ -1,0 +1,14 @@
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hostName: auth.homelab.local
+postgresql:
+  enabled: true   # chart intégré (cloudnative-pg), plus léger qu'un PG dédié
+redis:
+  enabled: true
+authentik:
+  # injecté depuis le secret K8s authentik-secrets
+  secret_key: "{{ authentik_secret_key }}"
+  postgresql:
+    password: "{{ authentik_pg_password }}"

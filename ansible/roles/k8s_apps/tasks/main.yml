@@ -1,0 +1,61 @@
+- name: Namespace metallb-system
+  kubernetes.core.k8s:
+    name: metallb-system
+    kind: Namespace
+    state: present
+
+- name: MetalLB via Helm
+  kubernetes.core.helm:
+    name: metallb
+    chart_ref: metallb/metallb
+    release_namespace: metallb-system
+    values: "{{ lookup('ansible.builtin.file', 'values/metallb.yaml') | from_yaml }}"
+
+- name: Pool d'adresses MetalLB
+  kubernetes.core.k8s:
+    definitions: "{{ lookup('ansible.builtin.file', 'manifests/metallb-pool.yaml') | from_yaml_all | list }}"
+    state: present
+
+- name: Traefik via Helm
+  kubernetes.core.helm:
+    name: traefik
+    chart_ref: traefik/traefik
+    release_namespace: traefik
+    create_namespace: true
+    values: "{{ lookup('ansible.builtin.file', 'values/traefik.yaml') | from_yaml }}"
+
+- name: Namespace authentik
+  kubernetes.core.k8s:
+    name: authentik
+    kind: Namespace
+    state: present
+
+- name: Secrets Authentik (secretKey + credentials PostgreSQL)
+  kubernetes.core.k8s:
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata: { name: authentik-secrets, namespace: authentik }
+      type: Opaque
+      stringData:
+        secret_key: "{{ authentik_secret_key }}"
+        pg_password: "{{ authentik_pg_password }}"
+    state: present
+  no_log: true
+
+- name: Authentik via Helm
+  kubernetes.core.helm:
+    name: authentik
+    chart_ref: goauthentik/authentik
+    release_namespace: authentik
+    values: "{{ lookup('ansible.builtin.file', 'values/authentik.yaml') | from_yaml }}"
+
+- name: Middleware forward-auth Authentik
+  kubernetes.core.k8s:
+    definitions: "{{ lookup('ansible.builtin.file', 'manifests/middleware-forwardauth.yaml') | from_yaml_all | list }}"
+    state: present
+
+- name: Ingress des services externes (Traefik -> TrueNAS S3)
+  kubernetes.core.k8s:
+    definitions: "{{ lookup('ansible.builtin.file', 'manifests/ingress-s3.yaml') | from_yaml_all | list }}"
+    state: present

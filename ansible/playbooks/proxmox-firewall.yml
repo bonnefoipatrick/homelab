@@ -1,0 +1,5 @@
+- name: Isolation du lab et DNAT vers Traefik
+  hosts: pve
+  roles:
+    - role: pve_firewall
+      tags: [firewall]

@@ -1,0 +1,16 @@
+---
+lab_network: "10.10.10.0/24"
+talos_vip: "10.10.10.10"
+metallb_range: "10.10.10.100-10.10.10.120"
+traefik_lb_ip: "10.10.10.100"
+truenas_s3_host: "10.10.10.20"
+truenas_s3_port: 9000
+domain: "homelab.local"        # à remplacer par ton domaine / split-DNS
+talos_version: "v1.10.5"
+kubectl_version: "v1.33.0"
+
+# Secrets (à chiffrer avec ansible-vault en production)
+authentik_secret_key: "CHANGE_ME_64_CHARS"
+authentik_pg_password: "CHANGE_ME"
+s3_access_key: "CHANGE_ME"
+s3_secret_key: "CHANGE_ME"

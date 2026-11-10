@@ -1,0 +1,7 @@
+- name: Déploiement des applications dans le cluster
+  hosts: talos
+  connection: local
+  gather_facts: false
+  roles:
+    - role: k8s_apps
+      tags: [apps]

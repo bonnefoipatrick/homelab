@@ -1,0 +1,12 @@
+- op: add
+  path: /machine/network
+  value:
+    interfaces:
+      - interface: eth0
+        addresses: [10.10.10.11/24]   # IP statique du control plane
+        vip:
+          ip: 10.10.10.10
+- op: add
+  path: /machine/install
+  value:
+    disk: /dev/sda

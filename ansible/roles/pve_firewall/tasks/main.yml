@@ -1,0 +1,23 @@
+- name: Créer /etc/nftables.d
+  ansible.builtin.file:
+    path: /etc/nftables.d
+    state: directory
+    mode: "0755"
+
+- name: Déployer la table nftables homelab
+  ansible.builtin.template:
+    src: nftables-lab.nft.j2
+    dest: /etc/nftables.d/homelab.nft
+    mode: "0644"
+
+- name: S'assurer que nftables inclut /etc/nftables.d
+  ansible.builtin.lineinfile:
+    path: /etc/nftables.conf
+    line: "include \"/etc/nftables.d/*.nft\""
+    create: true
+    state: present
+
+- name: Recharger nftables
+  ansible.builtin.service:
+    name: nftables
+    state: reloaded

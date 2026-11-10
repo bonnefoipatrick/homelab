@@ -1,0 +1,70 @@
+- name: Créer le répertoire de travail
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/talos"
+    state: directory
+    mode: "0700"
+
+- name: Générer la configuration Talos
+  ansible.builtin.command:
+    argv:
+      - talosctl
+      - gen
+      - config
+      - homelab
+      - "https://{{ talos_vip }}:6443"
+      - --config-patch-control-plane
+      - "{{ lookup('ansible.builtin.file', 'patches/controlplane.yaml') }}"
+  args:
+    chdir: "{{ ansible_env.HOME }}/talos"
+    creates: "{{ ansible_env.HOME }}/talos/controlplane.yaml"
+  run_once: true
+
+- name: Appliquer la config au control plane
+  ansible.builtin.command:
+    argv:
+      - talosctl
+      - apply-config
+      - --insecure
+      - --nodes {{ ansible_host }}
+      - --file controlplane.yaml
+  args:
+    chdir: "{{ ansible_env.HOME }}/talos"
+  when: inventory_hostname == 'talos-cp1'
+
+- name: Appliquer la config aux workers
+  ansible.builtin.command:
+    argv:
+      - talosctl
+      - apply-config
+      - --insecure
+      - --nodes {{ ansible_host }}
+      - --file worker.yaml
+  args:
+    chdir: "{{ ansible_env.HOME }}/talos"
+  when: inventory_hostname != 'talos-cp1'
+
+- name: Attendre que le control plane soit prêt
+  ansible.builtin.command:
+    argv: [talosctl, health, --nodes, "{{ hostvars['talos-cp1'].ansible_host }}"]
+  register: health
+  until: health.rc == 0
+  retries: 30
+  delay: 10
+  when: inventory_hostname == 'talos-cp1'
+
+- name: Bootstrap etcd (une seule fois, sur le master)
+  ansible.builtin.command:
+    argv: [talosctl, bootstrap, --nodes, "{{ hostvars['talos-cp1'].ansible_host }}"]
+  run_once: true
+  register: bootstrap
+  changed_when: bootstrap.rc == 0
+  failed_when: bootstrap.rc != 0 and 'already' not in bootstrap.stderr
+
+- name: Récupérer le kubeconfig
+  ansible.builtin.command:
+    argv:
+      - talosctl
+      - kubeconfig
+      - --nodes {{ hostvars['talos-cp1'].ansible_host }}
+      - "{{ ansible_env.HOME }}/.kube/config"
+  run_once: true

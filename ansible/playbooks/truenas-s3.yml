@@ -1,0 +1,6 @@
+- name: Exposition S3 de TrueNAS
+  hosts: truenas
+  become: true
+  roles:
+    - role: truenas_s3
+      tags: [s3]

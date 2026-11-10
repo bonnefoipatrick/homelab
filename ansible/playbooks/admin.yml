@@ -1,0 +1,6 @@
+- name: Outillage du serveur d'administration
+  hosts: admin
+  become: true
+  roles:
+    - role: admin
+      tags: [admin]

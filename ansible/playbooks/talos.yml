@@ -1,0 +1,7 @@
+- name: Bootstrap du cluster Talos
+  hosts: talos
+  connection: local          # tout se pilote depuis admin
+  gather_facts: false
+  roles:
+    - role: talos
+      tags: [talos]

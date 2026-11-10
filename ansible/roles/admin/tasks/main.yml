@@ -1,0 +1,51 @@
+- name: Paquets de base
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+      - unzip
+      - jq
+      - nftables
+      - python3-pip
+    state: present
+    update_cache: true
+
+- name: Installer talosctl
+  ansible.builtin.get_url:
+    url: "https://github.com/siderolabs/talos/releases/download/{{ talos_version }}/talosctl-linux-amd64"
+    dest: /usr/local/bin/talosctl
+    mode: "0755"
+
+- name: Installer kubectl
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    dest: /usr/local/bin/kubectl
+    mode: "0755"
+
+- name: Installer helm
+  ansible.builtin.unarchive:
+    src: "https://get.helm.sh/helm-v3.16.4-linux-amd64.tar.gz"
+    dest: /usr/local/bin
+    remote_src: true
+    extra_opts: ["--strip-components=1", "linux-amd64/helm"]
+    mode: "0755"
+
+- name: Télécharger tofu
+  ansible.builtin.get_url:
+    url: "https://github.com/opentofu/opentofu/releases/download/v1.9.0/tofu_1.9.0_linux_amd64.zip"
+    dest: /tmp/tofu.zip
+    mode: "0644"
+
+- name: Extraire tofu
+  ansible.builtin.unarchive:
+    src: /tmp/tofu.zip
+    dest: /usr/local/bin
+    remote_src: false
+    mode: "0755"
+
+- name: Synchroniser le dépôt homelab sur admin (git)
+  ansible.builtin.git:
+    repo: "{{ homelab_repo | default('https://github.com/bonnefoipatrick/homelab.git') }}"
+    dest: /home/admin/homelab
+    version: main
+  become: false
