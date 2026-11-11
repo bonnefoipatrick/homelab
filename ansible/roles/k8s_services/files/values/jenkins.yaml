@@ -8,7 +8,7 @@ controller:
   ingress:
     enabled: true
     ingressClassName: traefik
-    hostname: jenkins.homelab.local
+    hostname: jenkins.labinfosec.tech
 persistence:
   enabled: true
   size: 8Gi

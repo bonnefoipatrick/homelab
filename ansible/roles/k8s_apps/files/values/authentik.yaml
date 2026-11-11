@@ -2,7 +2,7 @@ server:
   ingress:
     enabled: true
     ingressClassName: traefik
-    hostName: auth.homelab.local
+    hostName: auth.labinfosec.tech
 postgresql:
   enabled: true   # chart intégré (cloudnative-pg), plus léger qu'un PG dédié
 redis:

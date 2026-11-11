@@ -5,7 +5,7 @@ metallb_range: "10.10.10.100-10.10.10.120"
 traefik_lb_ip: "10.10.10.100"
 truenas_s3_host: "10.10.10.20"
 truenas_s3_port: 9000
-domain: "homelab.local"        # à remplacer par ton domaine / split-DNS
+domain: "labinfosec.tech"        # domaine publique / split-DNS
 talos_version: "v1.10.5"
 kubectl_version: "v1.33.0"
 

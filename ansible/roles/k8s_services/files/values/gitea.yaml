@@ -7,7 +7,7 @@ ingress:
   enabled: true
   className: traefik
   hosts:
-    - host: gitea.homelab.local
+    - host: gitea.labinfosec.tech
       paths:
         - path: /
           pathType: Prefix
@@ -17,7 +17,7 @@ gitea:
     # password : généré dans le Secret gitea-admin-secret ; à vault-ifier
   config:
     server:
-      ROOT_URL: https://gitea.homelab.local
+      ROOT_URL: https://gitea.labinfosec.tech
     database:
       DB_TYPE: sqlite3     # suffisant pour un homelab ; passer à postgres si besoin
     service:

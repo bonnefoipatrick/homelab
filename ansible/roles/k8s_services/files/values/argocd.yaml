@@ -5,7 +5,7 @@ server:
   ingress:
     enabled: true
     ingressClassName: traefik
-    hostname: argocd.homelab.local
+    hostname: argocd.labinfosec.tech
   extraArgs:
     - --insecure
   resources:

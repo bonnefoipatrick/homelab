@@ -18,7 +18,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: s3.homelab.local
+    - host: s3.labinfosec.tech
       http:
         paths:
           - path: /

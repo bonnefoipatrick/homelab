@@ -11,7 +11,7 @@ server:
     enabled: true
     ingressClassName: traefik
     hosts:
-      - host: vault.homelab.local
+      - host: vault.labinfosec.tech
   resources:
     requests:
       cpu: 100m

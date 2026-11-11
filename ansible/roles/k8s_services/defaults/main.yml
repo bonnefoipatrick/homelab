@@ -16,4 +16,4 @@ enable_spark: false       # bitnami/spark : ~2-3 Go
 enable_splunk: false      # splunk-enterprise : >= 4 Go, licence gratuite 500 Mo/j
 
 # Nommage ingress
-domain: "homelab.local"
+domain: "labinfosec.tech"

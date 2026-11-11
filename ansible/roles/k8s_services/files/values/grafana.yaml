@@ -4,7 +4,7 @@ ingress:
   enabled: true
   ingressClassName: traefik
   hosts:
-    - grafana.homelab.local
+    - grafana.labinfosec.tech
   path: /
 persistence:
   enabled: true

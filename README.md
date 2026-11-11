@@ -1,6 +1,6 @@
 # Homelab Proxmox + Talos
 
-Infrastructure homelab sur un hôte Proxmox VE (mini PC, 16 Go) :
+Infrastructure homelab sur un hôte Proxmox VE (mini PC, 16 Go), domaine `labinfosec.tech` :
 
 - **Cluster Kubernetes** : 3 nœuds Talos Linux (1 control-plane + 2 workers) sur réseau isolé `vmbr1` (10.10.10.0/24)
 - **IDP** : Authentik (dans le cluster)
@@ -17,17 +17,23 @@ Vault, ArgoCD, Jenkins, **Gitea** (git + review, remplace GitLab : ~0,3 Go au li
 Désactivés par défaut (trop lourds pour 16 Go) : Spark (~3 Go), Splunk (~4 Go).
 Tous activables via `ansible/roles/k8s_services/defaults/main.yml`.
 
-| Service | Namespace | Ingress |
+| Service | Namespace | URL |
 |---|---|---|
-| Grafana | monitoring | grafana.homelab.local |
+| Authentik | authentik | auth.labinfosec.tech |
+| Grafana | monitoring | grafana.labinfosec.tech |
 | InfluxDB v2 | monitoring | interne |
 | Telegraf (DaemonSet) | monitoring | n/a |
-| Vault | security | vault.homelab.local |
-| ArgoCD | cicd | argocd.homelab.local |
-| Jenkins | cicd | jenkins.homelab.local |
-| Gitea | cicd | gitea.homelab.local (SSH via LoadBalancer MetalLB) |
+| Vault | security | vault.labinfosec.tech |
+| ArgoCD | cicd | argocd.labinfosec.tech |
+| Jenkins | cicd | jenkins.labinfosec.tech |
+| Gitea | cicd | gitea.labinfosec.tech (SSH via LoadBalancer MetalLB) |
+| S3 (TrueNAS) | default | s3.labinfosec.tech |
 | Spark | monitoring | interne |
 | Splunk | monitoring | interne |
+
+> DNS : enregistre `*.labinfosec.tech` (ou chaque sous-domaine) vers l'IP LAN de
+> l'hôte Proxmox ; le DNAT 443/80 du playbook proxmox-firewall.yml route vers Traefik.
+> Pour un vrai domaine public, ajoute cert-manager + Let's Encrypt dans le cluster.
 
 ## Plan d'adressage
 
