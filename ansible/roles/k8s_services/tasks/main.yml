@@ -65,7 +65,7 @@
     name: cicd
     kind: Namespace
     state: present
-  when: enable_argocd or enable_jenkins or enable_gitlab
+  when: enable_argocd or enable_jenkins or enable_gitea
 
 - name: ArgoCD via Helm
   kubernetes.core.helm:
@@ -83,10 +83,10 @@
     values: "{{ lookup('ansible.builtin.file', 'values/jenkins.yaml') | from_yaml }}"
   when: enable_jenkins
 
-- name: GitLab via Helm (chart officiel, lourd)
+- name: Gitea via Helm (remplace GitLab : ~0,3 Go)
   kubernetes.core.helm:
-    name: gitlab
-    chart_ref: gitlab/gitlab
+    name: gitea
+    chart_ref: gitea-charts/gitea
     release_namespace: cicd
-    values: "{{ lookup('ansible.builtin.file', 'values/gitlab.yaml') | from_yaml }}"
-  when: enable_gitlab
+    values: "{{ lookup('ansible.builtin.file', 'values/gitea.yaml') | from_yaml }}"
+  when: enable_gitea

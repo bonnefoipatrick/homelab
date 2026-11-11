@@ -9,6 +9,26 @@ Infrastructure homelab sur un hôte Proxmox VE (mini PC, 16 Go) :
 - **Bastion d'admin** : VM Debian 12, seule VM joignable depuis le LAN (SSH par clé)
 - **IaC** : OpenTofu (provider bpg/proxmox) + Ansible
 
+## Services dans le cluster
+
+Actifs par défaut (~4,5 Go dans le cluster) : Grafana, InfluxDB v2, Telegraf,
+Vault, ArgoCD, Jenkins, **Gitea** (git + review, remplace GitLab : ~0,3 Go au lieu de ~8 Go).
+
+Désactivés par défaut (trop lourds pour 16 Go) : Spark (~3 Go), Splunk (~4 Go).
+Tous activables via `ansible/roles/k8s_services/defaults/main.yml`.
+
+| Service | Namespace | Ingress |
+|---|---|---|
+| Grafana | monitoring | grafana.homelab.local |
+| InfluxDB v2 | monitoring | interne |
+| Telegraf (DaemonSet) | monitoring | n/a |
+| Vault | security | vault.homelab.local |
+| ArgoCD | cicd | argocd.homelab.local |
+| Jenkins | cicd | jenkins.homelab.local |
+| Gitea | cicd | gitea.homelab.local (SSH via LoadBalancer MetalLB) |
+| Spark | monitoring | interne |
+| Splunk | monitoring | interne |
+
 ## Plan d'adressage
 
 | Élément | IP |
@@ -18,7 +38,7 @@ Infrastructure homelab sur un hôte Proxmox VE (mini PC, 16 Go) :
 | VIP Talos | 10.10.10.10 |
 | talos-cp1 / w1 / w2 | 10.10.10.11 / .12 / .13 |
 | TrueNAS | 10.10.10.20 (S3 : 9000) |
-| MetalLB / Traefik | 10.10.10.100-120 (Traefik .100) |
+| MetalLB / Traefik | 10.10.10.100-120 (Traefik .100, Gitea SSH .101) |
 
 ## Ordre de déploiement
 
@@ -28,7 +48,8 @@ Infrastructure homelab sur un hôte Proxmox VE (mini PC, 16 Go) :
 4. Installer TrueNAS via son ISO (manuel, une fois) : IP 10.10.10.20, activer S3.
 5. `ansible-playbook playbooks/talos.yml` : bootstrap du cluster.
 6. `ansible-playbook playbooks/k8s-apps.yml` : MetalLB, Traefik, Authentik, ingress S3.
-7. `ansible-playbook playbooks/proxmox-firewall.yml` : DNAT 443/80 + isolation LAN/lab.
+7. `ansible-playbook playbooks/k8s-services.yml` : Grafana, InfluxDB, Telegraf, Vault, ArgoCD, Jenkins, Gitea (+ Spark/Splunk si activés).
+8. `ansible-playbook playbooks/proxmox-firewall.yml` : DNAT 443/80 + isolation LAN/lab.
 
 ## Isolation réseau
 

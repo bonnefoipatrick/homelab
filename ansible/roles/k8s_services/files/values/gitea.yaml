@@ -1,0 +1,37 @@
+service:
+  http:
+    type: ClusterIP
+  ssh:
+    type: LoadBalancer      # IP MetalLB pour git clone en SSH (ex: 10.10.10.101)
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: gitea.homelab.local
+      paths:
+        - path: /
+          pathType: Prefix
+gitea:
+  admin:
+    username: "gitea-admin"
+    # password : généré dans le Secret gitea-admin-secret ; à vault-ifier
+  config:
+    server:
+      ROOT_URL: https://gitea.homelab.local
+    database:
+      DB_TYPE: sqlite3     # suffisant pour un homelab ; passer à postgres si besoin
+    service:
+      DISABLE_REGISTRATION: true
+persistence:
+  enabled: true
+  size: 10Gi
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    memory: 384Mi
+redis:
+  enabled: false            # pas nécessaire avec sqlite3
+memcached:
+  enabled: false
