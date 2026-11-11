@@ -1,0 +1,92 @@
+- name: Namespace monitoring
+  kubernetes.core.k8s:
+    name: monitoring
+    kind: Namespace
+    state: present
+  when: enable_grafana or enable_influxdb or enable_telegraf or enable_splunk
+
+- name: Grafana via Helm
+  kubernetes.core.helm:
+    name: grafana
+    chart_ref: grafana/grafana
+    release_namespace: monitoring
+    values: "{{ lookup('ansible.builtin.file', 'values/grafana.yaml') | from_yaml }}"
+  when: enable_grafana
+
+- name: InfluxDB v2 via Helm
+  kubernetes.core.helm:
+    name: influxdb
+    chart_ref: influxdata/influxdb2
+    release_namespace: monitoring
+    values: "{{ lookup('ansible.builtin.file', 'values/influxdb.yaml') | from_yaml }}"
+  when: enable_influxdb
+
+- name: Telegraf via Helm (DaemonSet de collecte)
+  kubernetes.core.helm:
+    name: telegraf
+    chart_ref: influxdata/telegraf
+    release_namespace: monitoring
+    values: "{{ lookup('ansible.builtin.file', 'values/telegraf.yaml') | from_yaml }}"
+  when: enable_telegraf and enable_influxdb
+
+- name: Spark via Helm
+  kubernetes.core.helm:
+    name: spark
+    chart_ref: bitnami/spark
+    release_namespace: monitoring
+    values: "{{ lookup('ansible.builtin.file', 'values/spark.yaml') | from_yaml }}"
+  when: enable_spark
+
+- name: Splunk Enterprise via Helm
+  kubernetes.core.helm:
+    name: splunk
+    chart_ref: splunk/splunk
+    release_namespace: monitoring
+    values: "{{ lookup('ansible.builtin.file', 'values/splunk.yaml') | from_yaml }}"
+  when: enable_splunk
+
+- name: Namespace security
+  kubernetes.core.k8s:
+    name: security
+    kind: Namespace
+    state: present
+  when: enable_vault
+
+- name: Vault via Helm
+  kubernetes.core.helm:
+    name: vault
+    chart_ref: hashicorp/vault
+    release_namespace: security
+    values: "{{ lookup('ansible.builtin.file', 'values/vault.yaml') | from_yaml }}"
+  when: enable_vault
+
+- name: Namespace cicd
+  kubernetes.core.k8s:
+    name: cicd
+    kind: Namespace
+    state: present
+  when: enable_argocd or enable_jenkins or enable_gitlab
+
+- name: ArgoCD via Helm
+  kubernetes.core.helm:
+    name: argocd
+    chart_ref: argocd/argo-cd
+    release_namespace: cicd
+    values: "{{ lookup('ansible.builtin.file', 'values/argocd.yaml') | from_yaml }}"
+  when: enable_argocd
+
+- name: Jenkins via Helm
+  kubernetes.core.helm:
+    name: jenkins
+    chart_ref: jenkins/jenkins
+    release_namespace: cicd
+    values: "{{ lookup('ansible.builtin.file', 'values/jenkins.yaml') | from_yaml }}"
+  when: enable_jenkins
+
+- name: GitLab via Helm (chart officiel, lourd)
+  kubernetes.core.helm:
+    name: gitlab
+    chart_ref: gitlab/gitlab
+    release_namespace: cicd
+    values: "{{ lookup('ansible.builtin.file', 'values/gitlab.yaml') | from_yaml }}"
+  when: enable_gitlab

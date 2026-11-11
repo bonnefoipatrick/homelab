@@ -1,0 +1,7 @@
+- name: Déploiement des services additionnels (monitoring, data, sécurité, CI/CD)
+  hosts: talos
+  connection: local
+  gather_facts: false
+  roles:
+    - role: k8s_services
+      tags: [services]

@@ -1,0 +1,17 @@
+splunk:
+  hec_token: "CHANGE_ME_HEC_TOKEN"
+  password: "CHANGE_ME"          # 8+ caractères, obligatoire
+  allowRemoteLogin: strict
+  service:
+    type: ClusterIP
+# Splunk Enterprise single-instance ; licence gratuite : 500 Mo/jour
+resources:
+  requests:
+    cpu: 500m
+    memory: 2Gi
+  limits:
+    memory: 4Gi
+persistence:
+  enabled: true
+  storageClass: ""
+  size: 50Gi

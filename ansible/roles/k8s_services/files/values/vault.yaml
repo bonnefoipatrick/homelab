@@ -1,0 +1,22 @@
+server:
+  # mode standalone pour homelab ; production : raft HA + auto-unseal
+  dev:
+    enabled: false
+  standalone:
+    enabled: true
+  dataStorage:
+    enabled: true
+    size: 1Gi
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - host: vault.homelab.local
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 512Mi
+ui:
+  enabled: true

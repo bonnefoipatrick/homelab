@@ -1,0 +1,31 @@
+# ATTENTION : chart officiel GitLab, tres lourd (recommande >= 8 Go pour lui seul).
+# Sur mini PC 16 Go : garder enable_gitlab: false, ou utiliser Gitea a la place.
+global:
+  edition: ce
+  hosts:
+    domain: homelab.local
+  ingress:
+    configureCertmanager: false
+    class: traefik
+  psql:
+    host: gitlab-postgresql.cicd.svc.cluster.local
+certmanager:
+  install: false
+nginx-ingress:
+  enabled: false       # ingress gere par Traefik
+prometheus:
+  install: false
+gitlab:
+  gitaly:
+    persistence:
+      size: 20Gi
+  sidekiq:
+    resources:
+      requests:
+        memory: 1Gi
+  webservice:
+    ingress:
+      enabled: true
+    resources:
+      requests:
+        memory: 1Gi

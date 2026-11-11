@@ -1,0 +1,13 @@
+master:
+  resources:
+    requests:
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+worker:
+  replicaCount: 1
+  resources:
+    requests:
+      memory: 1Gi
+    limits:
+      memory: 2Gi

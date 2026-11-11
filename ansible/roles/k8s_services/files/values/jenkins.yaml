@@ -1,0 +1,19 @@
+controller:
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hostname: jenkins.homelab.local
+persistence:
+  enabled: true
+  size: 8Gi
+agent:
+  enabled: true      # agents dans le cluster (pods) via le plugin kubernetes
+  resources:
+    limits:
+      memory: 512Mi

@@ -1,0 +1,15 @@
+deploy:
+  type: DaemonSet
+config:
+  outputs: |-
+    [[outputs.influxdb_v2]]
+      urls = ["http://influxdb-influxdb2.monitoring.svc.cluster.local:80"]
+      token = "$INFLUX_TOKEN"     # injecté depuis le secret influxdb2-auth
+      organization = "homelab"
+      bucket = "telegraf"
+  inputs: |-
+    [[inputs.cpu]]
+    [[inputs.mem]]
+    [[inputs.disk]]
+    [[inputs.net]]
+    [[inputs.kubernetes]]

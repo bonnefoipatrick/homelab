@@ -1,0 +1,20 @@
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  hosts:
+    - grafana.homelab.local
+  path: /
+persistence:
+  enabled: true
+  size: 5Gi
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 512Mi
+sidecar:
+  dashboards:
+    enabled: true

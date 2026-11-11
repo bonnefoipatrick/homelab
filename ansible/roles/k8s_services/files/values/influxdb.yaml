@@ -1,0 +1,15 @@
+persistence:
+  enabled: true
+  size: 10Gi
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    memory: 1Gi
+# identifiants initiaux (à mettre dans un secret/vault en production)
+adminUser:
+  organization: homelab
+  bucket: telegraf
+  user: admin
+  # le chart génère le Secret influxdb2-auth avec le token admin

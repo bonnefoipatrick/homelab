@@ -1,0 +1,19 @@
+---
+# Services activables/désactivables individuellement.
+# ATTENTION : sur un mini PC 16 Go, tout activer en même temps ne tiendra pas.
+# Splunk seul réclame ~4 Go ; la stack GitLab officielle ~8 Go.
+
+enable_grafana: true
+enable_influxdb: true
+enable_telegraf: true    # dépend d'InfluxDB
+enable_vault: true
+enable_argocd: true
+enable_jenkins: true
+
+# Services lourds : désactivés par défaut
+enable_spark: false       # bitnami/spark : ~2 Go
+enable_splunk: false      # splunk-enterprise : >= 4 Go, licence gratuite 500 Mo/j
+enable_gitlab: false      # chart gitlab/gitlab officiel : >= 8 Go seul ; envisager Gitea
+
+# Nommage ingress
+domain: "homelab.local"
