@@ -1,0 +1,26 @@
+# Copier ce fichier vers terraform.tfvars puis renseigner les valeurs.
+# terraform.tfvars ne doit JAMAIS être commité (ajouter .gitignore).
+
+# URL de l'API Proxmox
+pve_endpoint = "https://192.168.88.10:8006/"
+
+# Token API Proxmox (format "user@pam!tokenid=secret")
+# Création :
+#   pveum user add tofu@pve --comment "OpenTofu"
+#   pveum user token add tofu@pve tofu --privsep 0
+#   pveum acl modify / -user tofu@pve -role Administrator -tokens "tofu"
+# Astuce : préférer la variable d'environnement TF_VAR_pve_api_token plutôt que ce fichier.
+pve_api_token = "tofu@pve!tofu=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+pve_node = "pve"
+storage  = "local-lvm"
+
+talos_version = "v1.10.5"
+
+# Clés SSH publiques autorisées sur la VM admin
+admin_ssh_keys = [
+  "ssh-ed25519 AAAA... votre-cle@machine",
+]
+
+# Nom du bridge LAN existant (ne pas créer, il est déjà branché au réseau local)
+lan_bridge = "vmbr0"

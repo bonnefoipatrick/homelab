@@ -1,0 +1,12 @@
+# Fichiers sensibles
+terraform.tfvars
+*.tfvars
+!terraform.tfvars.example
+
+# État et cache tofu
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate.*
+crash.log
