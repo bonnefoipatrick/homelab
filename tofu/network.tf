@@ -2,7 +2,7 @@
 resource "proxmox_virtual_environment_network_linux_bridge" "lab" {
   node_name = var.pve_node
   name      = "vmbr1"
-  address   = ["172.16.32.1/24"]
+  address   = "172.16.32.1/24"
   comment   = "Homelab - reseau interne isole"
   autostart = true
 }
