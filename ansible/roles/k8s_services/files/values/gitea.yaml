@@ -2,7 +2,7 @@ service:
   http:
     type: ClusterIP
   ssh:
-    type: LoadBalancer      # IP MetalLB pour git clone en SSH (ex: 10.10.10.101)
+    type: LoadBalancer      # IP MetalLB pour git clone en SSH (ex: 172.16.32.101)
 ingress:
   enabled: true
   className: traefik

@@ -77,8 +77,8 @@ resource "proxmox_virtual_environment_vm" "admin" {
     }
     ip_config {
       ipv4 {
-        address = "10.10.10.5/24"
-        gateway = "10.10.10.1"
+        address = "172.16.32.5/24"
+        gateway = "172.16.32.1"
       }
     }
   }

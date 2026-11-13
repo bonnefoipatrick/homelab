@@ -3,9 +3,9 @@
   value:
     interfaces:
       - interface: eth0
-        addresses: [10.10.10.11/24]   # IP statique du control plane
+        addresses: [172.16.32.11/24]   # IP statique du control plane
         vip:
-          ip: 10.10.10.10
+          ip: 172.16.32.10
 - op: add
   path: /machine/install
   value:

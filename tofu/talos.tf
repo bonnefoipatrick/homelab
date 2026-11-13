@@ -9,9 +9,9 @@ resource "proxmox_virtual_environment_download" "talos" {
 
 locals {
   talos_nodes = {
-    "talos-cp1" = { ip = "10.10.10.11/24", type = "controlplane", cores = 2, mem = 2816, disk = 20 }
-    "talos-w1"  = { ip = "10.10.10.12/24", type = "worker",       cores = 2, mem = 3072, disk = 40 }
-    "talos-w2"  = { ip = "10.10.10.13/24", type = "worker",       cores = 2, mem = 3072, disk = 40 }
+    "talos-cp1" = { ip = "172.16.32.11/24", type = "controlplane", cores = 2, mem = 2816, disk = 20 }
+    "talos-w1"  = { ip = "172.16.32.12/24", type = "worker",       cores = 2, mem = 3072, disk = 40 }
+    "talos-w2"  = { ip = "172.16.32.13/24", type = "worker",       cores = 2, mem = 3072, disk = 40 }
   }
 }
 

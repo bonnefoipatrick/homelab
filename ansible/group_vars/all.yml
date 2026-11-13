@@ -1,9 +1,9 @@
 ---
-lab_network: "10.10.10.0/24"
-talos_vip: "10.10.10.10"
-metallb_range: "10.10.10.100-10.10.10.120"
-traefik_lb_ip: "10.10.10.100"
-truenas_s3_host: "10.10.10.20"
+lab_network: "172.16.32.0/24"
+talos_vip: "172.16.32.10"
+metallb_range: "172.16.32.100-172.16.32.120"
+traefik_lb_ip: "172.16.32.100"
+truenas_s3_host: "172.16.32.20"
 truenas_s3_port: 9000
 domain: "labinfosec.tech"        # domaine publique / split-DNS
 talos_version: "v1.10.5"
