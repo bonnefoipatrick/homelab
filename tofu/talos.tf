@@ -1,10 +1,33 @@
 # Image nocloud Talos importée sur l'hôte PVE
-resource "proxmox_virtual_environment_download" "talos" {
+# NB : le type de ressource est "download_file" ; un qcow2 est déclaré en content_type "iso"
+resource "proxmox_virtual_environment_download_file" "talos_image" {
   node_name    = var.pve_node
   content_type = "iso"
+  datastore_id = "local"
   url          = "https://github.com/siderolabs/talos/releases/download/${var.talos_version}/nocloud-amd64.qcow2"
   overwrite    = false
-  datastore_id = "local"
+}
+
+# VM template Talos, construite à partir de l'image importée
+resource "proxmox_virtual_environment_vm" "talos_template" {
+  node_name = var.pve_node
+  name      = "talos-template"
+  tags      = ["homelab", "talos", "template"]
+  template  = true
+
+  disk {
+    datastore_id = var.storage
+    interface    = "scsi0"
+    file_id      = proxmox_virtual_environment_download_file.talos_image.id
+    ssd          = true
+    discard      = true
+  }
+
+  network_device {
+    bridge = "vmbr1"
+  }
+
+  started = false
 }
 
 locals {
@@ -23,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "talos" {
   tags      = ["homelab", "talos", each.value.type]
 
   clone {
-    vm_id        = proxmox_virtual_environment_download.talos.vm_id
+    vm_id        = proxmox_virtual_environment_vm.talos_template.vm_id
     full         = true
     datastore_id = var.storage
   }

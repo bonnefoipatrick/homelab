@@ -1,9 +1,9 @@
-resource "proxmox_virtual_environment_download" "truenas_iso" {
+resource "proxmox_virtual_environment_download_file" "truenas_iso" {
   node_name    = var.pve_node
   content_type = "iso"
+  datastore_id = "local"
   url          = "https://download.sys.truenas.net/TrueNAS-SCALE-ElectricEel/24.10.2/TrueNAS-SCALE-24.10.2.iso"
   overwrite    = false
-  datastore_id = "local"
 }
 
 resource "proxmox_virtual_environment_vm" "truenas" {
@@ -36,7 +36,7 @@ resource "proxmox_virtual_environment_vm" "truenas" {
 
   cdrom {
     datastore_id = "local"
-    file_id      = proxmox_virtual_environment_download.truenas_iso.id
+    file_id      = proxmox_virtual_environment_download_file.truenas_iso.id
   }
 
   network_device {

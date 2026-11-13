@@ -1,9 +1,31 @@
-resource "proxmox_virtual_environment_download" "debian12" {
+resource "proxmox_virtual_environment_download_file" "debian12_image" {
   node_name    = var.pve_node
   content_type = "iso"
+  datastore_id = "local"
   url          = "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-nocloud-amd64.qcow2"
   overwrite    = false
-  datastore_id = "local"
+}
+
+# VM template Debian 12, construite à partir de l'image importée
+resource "proxmox_virtual_environment_vm" "debian12_template" {
+  node_name = var.pve_node
+  name      = "debian12-template"
+  tags      = ["homelab", "template"]
+  template  = true
+
+  disk {
+    datastore_id = var.storage
+    interface    = "scsi0"
+    file_id      = proxmox_virtual_environment_download_file.debian12_image.id
+    ssd          = true
+    discard      = true
+  }
+
+  network_device {
+    bridge = "vmbr1"
+  }
+
+  started = false
 }
 
 resource "proxmox_virtual_environment_file" "admin_ci_snippet" {
@@ -34,7 +56,7 @@ resource "proxmox_virtual_environment_vm" "admin" {
   tags      = ["homelab", "admin"]
 
   clone {
-    vm_id        = proxmox_virtual_environment_download.debian12.vm_id
+    vm_id        = proxmox_virtual_environment_vm.debian12_template.vm_id
     full         = true
     datastore_id = var.storage
   }
